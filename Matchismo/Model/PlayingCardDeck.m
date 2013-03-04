@@ -11,6 +11,7 @@
 @implementation PlayingCardDeck
 
 -(id) init {
+    // Initialize a standard deck of 52 playing cards
     self = [super init];
     if (self) {
         for (NSString *suit in [PlayingCard validSuits]) {

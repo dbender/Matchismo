@@ -11,6 +11,7 @@
 @implementation Card
 
 - (int) match:(NSArray *) otherCards {
+    // Compare self to all cards in otherCards array and score 1 if there is a match
     int score = 0;
     for (Card *card in otherCards)
         if ([card.contents isEqualToString:self.contents]) {
