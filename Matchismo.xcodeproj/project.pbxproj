@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		EB29AF7D16DC2E0B00E169A2 /* CardMatchingGame.m in Sources */ = {isa = PBXBuildFile; fileRef = EB29AF7C16DC2E0B00E169A2 /* CardMatchingGame.m */; };
-		EB9D36B916DFF88100B2CB0B /* Playing Card Back.png in Resources */ = {isa = PBXBuildFile; fileRef = EB9D36B816DFF88100B2CB0B /* Playing Card Back.png */; };
 		EB9D372916E5615E00B2CB0B /* card-back.png in Resources */ = {isa = PBXBuildFile; fileRef = EB9D36BB16E5615D00B2CB0B /* card-back.png */; };
 		EB9D372A16E5615E00B2CB0B /* card-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB9D36BC16E5615D00B2CB0B /* card-back@2x.png */; };
 		EB9D372B16E5615E00B2CB0B /* club-1.png in Resources */ = {isa = PBXBuildFile; fileRef = EB9D36BD16E5615D00B2CB0B /* club-1.png */; };
@@ -138,7 +137,6 @@
 /* Begin PBXFileReference section */
 		EB29AF7B16DC2E0B00E169A2 /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardMatchingGame.h; path = Model/CardMatchingGame.h; sourceTree = "<group>"; };
 		EB29AF7C16DC2E0B00E169A2 /* CardMatchingGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardMatchingGame.m; path = Model/CardMatchingGame.m; sourceTree = "<group>"; };
-		EB9D36B816DFF88100B2CB0B /* Playing Card Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Playing Card Back.png"; sourceTree = "<group>"; };
 		EB9D36BB16E5615D00B2CB0B /* card-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-back.png"; sourceTree = "<group>"; };
 		EB9D36BC16E5615D00B2CB0B /* card-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-back@2x.png"; sourceTree = "<group>"; };
 		EB9D36BD16E5615D00B2CB0B /* club-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "club-1.png"; sourceTree = "<group>"; };
@@ -461,7 +459,6 @@
 				EBA6876B16DABE4B006018C2 /* InfoPlist.strings */,
 				EBA6876E16DABE4B006018C2 /* main.m */,
 				EBA6877016DABE4B006018C2 /* Matchismo-Prefix.pch */,
-				EB9D36B816DFF88100B2CB0B /* Playing Card Back.png */,
 				EBA6877416DABE4B006018C2 /* Default.png */,
 				EBA6877616DABE4B006018C2 /* Default@2x.png */,
 				EBA6877816DABE4B006018C2 /* Default-568h@2x.png */,
@@ -543,7 +540,6 @@
 				EBA6877716DABE4B006018C2 /* Default@2x.png in Resources */,
 				EBA6877916DABE4B006018C2 /* Default-568h@2x.png in Resources */,
 				EBA6877C16DABE4B006018C2 /* MainStoryboard.storyboard in Resources */,
-				EB9D36B916DFF88100B2CB0B /* Playing Card Back.png in Resources */,
 				EB9D372916E5615E00B2CB0B /* card-back.png in Resources */,
 				EB9D372A16E5615E00B2CB0B /* card-back@2x.png in Resources */,
 				EB9D372B16E5615E00B2CB0B /* club-1.png in Resources */,
