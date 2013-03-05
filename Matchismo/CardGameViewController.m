@@ -30,7 +30,7 @@
     return _game;
 }
 
-- (void) viewDidLoad {
+- (void) loadCardImages {
     for (UIButton *cardButton in self.cardButtons) {
         Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
         [cardButton setTitle:card.contents forState:UIControlStateSelected];
@@ -42,6 +42,10 @@
         [cardButton setImage:blankImage forState:UIControlStateSelected];
         [cardButton setImage:blankImage forState:UIControlStateSelected|UIControlStateDisabled];
     }
+}
+
+- (void) viewDidLoad {
+    [self loadCardImages];
     self.resultsSlider.hidden = YES;
 }
 
@@ -57,6 +61,7 @@
 
 - (void) updateUI {
     for (UIButton *cardButton in self.cardButtons) {
+        
         Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
         cardButton.selected = card.isFaceUp;
         cardButton.enabled = !card.isUnplayable;
@@ -73,8 +78,6 @@
         self.resultsSlider.hidden = YES;
         self.resultsLabel.text = @"Flip a card.";
     }
-    NSLog(@"resultsArray.count = %d",self.resultsArray.count);
-    NSLog(@"displayedResult = %d",self.displayedResult);
 }
 
 - (void) setFlipCount:(int)flipCount {
@@ -98,6 +101,7 @@
     self.flipCount = 0;
     self.gameModeSegmentedControl.enabled = YES;
     self.resultsArray = nil;
+    [self loadCardImages];
     [self updateUI];
 }
 
