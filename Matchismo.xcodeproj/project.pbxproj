@@ -446,7 +446,6 @@
 				EBA6877A16DABE4B006018C2 /* MainStoryboard.storyboard */,
 				EBA6877D16DABE4B006018C2 /* CardGameViewController.h */,
 				EBA6877E16DABE4B006018C2 /* CardGameViewController.m */,
-				EB9D36BA16E5615D00B2CB0B /* cardimages */,
 				EBA6876916DABE4B006018C2 /* Supporting Files */,
 			);
 			path = Matchismo;
@@ -455,6 +454,7 @@
 		EBA6876916DABE4B006018C2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EB9D36BA16E5615D00B2CB0B /* cardimages */,
 				EBA6876A16DABE4B006018C2 /* Matchismo-Info.plist */,
 				EBA6876B16DABE4B006018C2 /* InfoPlist.strings */,
 				EBA6876E16DABE4B006018C2 /* main.m */,
