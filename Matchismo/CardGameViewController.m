@@ -45,6 +45,7 @@
 }
 
 - (void) viewDidLoad {
+    [super viewDidLoad];
     [self loadCardImages];
     self.resultsSlider.hidden = YES;
 }
