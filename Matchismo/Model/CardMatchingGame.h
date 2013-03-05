@@ -8,17 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import "Deck.h"
-#define TWO_CARD_MODE 2 // 2-card game mode
-#define THREE_CARD_MODE 3 // 3-card game mode
 
 @interface CardMatchingGame : NSObject
 
-- (id) initWithCardCount: (NSUInteger) cardCount usingDeck: (Deck *) deck;
+- (id)initWithCardCount:(NSUInteger)count
+              usingDeck:(Deck *)deck
+           cardsToMatch:(NSUInteger)numCards
+             matchBonus:(NSUInteger)matchBonus
+        mismatchPenalty:(NSUInteger)mismatchPenalty
+               flipCost:(NSUInteger)flipCost;
 - (void) flipCardAtIndex: (NSUInteger) index;
 - (Card *) cardAtIndex: (NSUInteger) index;
 
 @property (nonatomic, readonly) int score;
 @property (strong, nonatomic) NSString *result;
-@property (nonatomic) NSUInteger gameMode;
 
 @end

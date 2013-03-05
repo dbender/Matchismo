@@ -12,6 +12,10 @@
 @interface CardMatchingGame()
 @property (strong, nonatomic) NSMutableArray *cards;
 @property (nonatomic) int score;
+@property (nonatomic) NSUInteger gameMode;
+@property (nonatomic) NSUInteger flipCost;
+@property (nonatomic) NSUInteger matchBonus;
+@property (nonatomic) NSUInteger mismatchPenalty;
 @end
 
 @implementation CardMatchingGame
@@ -22,26 +26,35 @@
     return _cards;
 }
 
-- (id) initWithCardCount: (NSUInteger) cardCount usingDeck: (Deck *) deck {
+- (id)initWithCardCount:(NSUInteger)count
+              usingDeck:(Deck *)deck
+           cardsToMatch:(NSUInteger)numCards
+             matchBonus:(NSUInteger)matchBonus
+        mismatchPenalty:(NSUInteger)mismatchPenalty
+               flipCost:(NSUInteger)flipCost
+{
     self = [super init];
+    
     if (self) {
-        for (int i = 0; i < cardCount; i++) {
+        for (int i = 0; i < count; i++) {
             Card *card = [deck drawRandomCard];
             if (!card) {
                 self = nil;
-            }
-            else {
+            } else {
                 self.cards[i] = card;
             }
         }
+        if (numCards >=2) {
+            self.gameMode = numCards;
+        }
     }
-    self.gameMode = TWO_CARD_MODE;
+    self.matchBonus = matchBonus;
+    self.mismatchPenalty = mismatchPenalty;
+    self.flipCost = flipCost;
+    
     return self;
 }
 
-#define FLIP_COST 1
-#define MISMATCH_PENALTY 2
-#define MATCH_BONUS 4
 
 -(void)flipCardAtIndex:(NSUInteger)index
 {
@@ -58,19 +71,19 @@
                 for (Card *otherCard in upCards) {
                     otherCard.unplayable = YES;
                 }
-                self.score += matchScore * MATCH_BONUS;
-                self.result =[NSString stringWithFormat:@"Matched %@ and %@ for %d points!",[upCards componentsJoinedByString:@", "],card.contents, matchScore * MATCH_BONUS];
+                self.score += matchScore * self.matchBonus;
+                self.result =[NSString stringWithFormat:@"Matched %@ and %@ for %d points!",[upCards componentsJoinedByString:@", "],card.contents, matchScore * self.matchBonus];
             } else {
                 for (Card *otherCard in upCards) {
                     otherCard.faceUp = NO;
                 }
-                self.score -= MISMATCH_PENALTY;
-                self.result = [NSString stringWithFormat:@"%@ and %@ don't match! %d point penalty!",[upCards componentsJoinedByString:@", "],card.contents,MISMATCH_PENALTY];
+                self.score -= self.mismatchPenalty;
+                self.result = [NSString stringWithFormat:@"%@ and %@ don't match! %d point penalty!",[upCards componentsJoinedByString:@", "],card.contents,self.mismatchPenalty];
             }
         } else {
             self.result = [NSString stringWithFormat:@"Flipped up %@",card.contents];
         }
-        self.score -= FLIP_COST;
+        self.score -= self.flipCost;
     }
     card.faceUp = !card.faceUp;
 }

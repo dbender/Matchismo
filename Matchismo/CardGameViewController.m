@@ -19,16 +19,15 @@
 @property (weak, nonatomic) IBOutlet UISlider *resultsSlider;
 @property (nonatomic) NSUInteger displayedResult;
 @property (weak, nonatomic) IBOutlet UILabel *resultsLabel;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSegmentedControl;
 @end
 
 @implementation CardGameViewController
 
-- (CardMatchingGame *) game {
+/*- (CardMatchingGame *) game {
     // Lazily instantiate a card matching game
     if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count usingDeck:[[PlayingCardDeck alloc]init]];
     return _game;
-}
+}*/
 
 - (void) loadCardImages {
     for (UIButton *cardButton in self.cardButtons) {
@@ -48,6 +47,7 @@
     [super viewDidLoad];
     [self loadCardImages];
     self.resultsSlider.hidden = YES;
+    self.resultsLabel.text = @"New game. Flip a card.";
 }
 
 - (NSArray *) resultsArray {
@@ -69,7 +69,6 @@
         cardButton.alpha = card.isUnplayable ? 0.3 : 1.0;
     }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
-    self.gameModeSegmentedControl.selectedSegmentIndex = self.game.gameMode - 2;
     if (self.resultsArray.count > 0) {
         self.resultsSlider.hidden = NO;
         if (self.displayedResult > 0) {
@@ -89,7 +88,6 @@
 - (IBAction)flipCard:(UIButton *)sender {
     [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
     self.flipCount++;
-    self.gameModeSegmentedControl.enabled = NO;
     self.resultsArray = [self.resultsArray arrayByAddingObject:self.game.result];
     self.displayedResult = self.resultsArray.count;
     if (self.displayedResult > 0)
@@ -100,15 +98,12 @@
 - (IBAction)dealNewGame:(id)sender {
     self.game = nil;
     self.flipCount = 0;
-    self.gameModeSegmentedControl.enabled = YES;
     self.resultsArray = nil;
+    self.resultsLabel.text = @"New game. Flip a card.";
     [self loadCardImages];
     [self updateUI];
 }
 
-- (IBAction)changeCardCount:(id)sender {
-    self.game.gameMode = self.gameModeSegmentedControl.selectedSegmentIndex + 2; // Index 0 for 2-card mode, Index 1 for 3-card mode
-}
 - (IBAction)changeResultToShow:(UISlider *)sender {
     self.displayedResult = floor(self.resultsArray.count * self.resultsSlider.value + 0.5);
     [self updateUI];
