@@ -29,10 +29,10 @@
         [colorSet addObject:card.color];
         [shadingSet addObject:card.shading];
     }
-    if (numberSet.count == 2) return 0;
-    if (symbolSet.count == 2) return 0;
-    if (colorSet.count == 2) return 0;
-    if (shadingSet.count == 2) return 0;
+    if ([numberSet count] == 2) return 0;
+    if ([symbolSet count] == 2) return 0;
+    if ([colorSet count] == 2) return 0;
+    if ([shadingSet count] == 2) return 0;
     return 10;
 }
 

@@ -23,23 +23,25 @@
 
 @implementation CardGameViewController
 
-/*- (CardMatchingGame *) game {
-    // Lazily instantiate a card matching game
-    if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count usingDeck:[[PlayingCardDeck alloc]init]];
+- (CardMatchingGame *) game {
+    if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]usingDeck:[[PlayingCardDeck alloc] init]
+           cardsToMatch:2
+             matchBonus:4
+        mismatchPenalty:2
+               flipCost:1];
     return _game;
-}*/
+}
 
 - (void) loadCardImages {
     for (UIButton *cardButton in self.cardButtons) {
         Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
         [cardButton setTitle:card.contents forState:UIControlStateSelected];
         [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];
-        UIImage *cardImage = [UIImage imageNamed:@"card-back.png.png"];
+        UIImage *cardImage = [UIImage imageNamed:@"card-back.png"];
         [cardButton setImage:cardImage forState:UIControlStateNormal];
         cardButton.imageEdgeInsets = UIEdgeInsetsFromString(@"{1.0,1.0,1.0,1.0}");
-        UIImage *blankImage = [[UIImage alloc] init];
-        [cardButton setImage:blankImage forState:UIControlStateSelected];
-        [cardButton setImage:blankImage forState:UIControlStateSelected|UIControlStateDisabled];
+        [cardButton setImage:nil forState:UIControlStateSelected];
+        [cardButton setImage:nil forState:UIControlStateSelected|UIControlStateDisabled];
     }
 }
 
@@ -69,7 +71,7 @@
         cardButton.alpha = card.isUnplayable ? 0.3 : 1.0;
     }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
-    if (self.resultsArray.count > 0) {
+    if ([self.resultsArray count] > 0) {
         self.resultsSlider.hidden = NO;
         if (self.displayedResult > 0) {
             self.resultsLabel.text = self.resultsArray[self.displayedResult - 1];
@@ -89,9 +91,9 @@
     [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
     self.flipCount++;
     self.resultsArray = [self.resultsArray arrayByAddingObject:self.game.result];
-    self.displayedResult = self.resultsArray.count;
+    self.displayedResult = [self.resultsArray count];
     if (self.displayedResult > 0)
-        [self.resultsSlider setValue:self.displayedResult / self.resultsArray.count animated:YES];
+        [self.resultsSlider setValue:self.displayedResult / [self.resultsArray count] animated:YES];
     [self updateUI];
 }
 
@@ -105,7 +107,7 @@
 }
 
 - (IBAction)changeResultToShow:(UISlider *)sender {
-    self.displayedResult = floor(self.resultsArray.count * self.resultsSlider.value + 0.5);
+    self.displayedResult = floor([self.resultsArray count] * self.resultsSlider.value + 0.5);
     [self updateUI];
 }
 

@@ -32,8 +32,8 @@
 -(Card *) drawRandomCard {
     // Remove and return a random card from self (the deck)
     Card *randomCard = nil;
-    if (self.cards.count) {
-        unsigned index = arc4random() % self.cards.count;
+    if ([self.cards count]) {
+        unsigned index = arc4random() % [self.cards count];
         randomCard = self.cards[index];
         [self.cards removeObjectAtIndex:index];
     }

@@ -64,7 +64,7 @@
         for (Card *otherCard in self.cards)
             if (otherCard.isFaceUp && !otherCard.isUnplayable)
                 [upCards addObject:otherCard];
-        if (upCards.count + 1 == self.gameMode) {
+        if ([upCards count] + 1 == self.gameMode) {
             int matchScore = [card match:upCards];
             if (matchScore) {
                 card.unplayable = YES;
@@ -89,7 +89,7 @@
 }
 
 - (Card *) cardAtIndex: (NSUInteger) index {
-    return (index < self.cards.count ? self.cards[index] : nil);
+    return (index < [self.cards count] ? self.cards[index] : nil);
 }
 
 
