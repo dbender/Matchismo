@@ -11,13 +11,16 @@
 
 @interface CardMatchingGame : NSObject
 
-- (id)initWithCardCount:(NSUInteger)count
+//designated initializer
+- (id)initWithCardCount:(NSUInteger)count //How many cards in a deck?
               usingDeck:(Deck *)deck
-           cardsToMatch:(NSUInteger)numCards
-             matchBonus:(NSUInteger)matchBonus
-        mismatchPenalty:(NSUInteger)mismatchPenalty
-               flipCost:(NSUInteger)flipCost;
+           cardsToMatch:(NSUInteger)numCards //Match how many cards?
+             matchBonus:(NSUInteger)matchBonus //How many points for match?
+        mismatchPenalty:(NSUInteger)mismatchPenalty //How many points deducted for mismatch?
+               flipCost:(NSUInteger)flipCost; //How many points deducted for each card flip?
+
 - (void) flipCardAtIndex: (NSUInteger) index;
+
 - (Card *) cardAtIndex: (NSUInteger) index;
 
 @property (nonatomic, readonly) int score;

@@ -7,13 +7,10 @@
 //
 
 #import "CardGameViewController.h"
-#import "CardMatchingGame.h"
 
 @interface CardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (nonatomic) int flipCount;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (strong, nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) NSArray *resultsArray;
 @property (weak, nonatomic) IBOutlet UISlider *resultsSlider;
@@ -23,33 +20,35 @@
 
 @implementation CardGameViewController
 
-- (CardMatchingGame *) game {
-    if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]usingDeck:[[PlayingCardDeck alloc] init]
-           cardsToMatch:2
-             matchBonus:4
-        mismatchPenalty:2
-               flipCost:1];
+- (CardMatchingGame *)game {
+    if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
+                usingDeck:[self createDeck]
+             cardsToMatch:self.cardsToMatch
+               matchBonus:self.matchBonus
+          mismatchPenalty:self.mismatchPenalty
+                 flipCost:self.flipCost];
     return _game;
 }
 
-- (void) loadCardImages {
-    for (UIButton *cardButton in self.cardButtons) {
-        Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
-        [cardButton setTitle:card.contents forState:UIControlStateSelected];
-        [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];
-        UIImage *cardImage = [UIImage imageNamed:@"card-back.png"];
-        [cardButton setImage:cardImage forState:UIControlStateNormal];
-        cardButton.imageEdgeInsets = UIEdgeInsetsFromString(@"{1.0,1.0,1.0,1.0}");
-        [cardButton setImage:nil forState:UIControlStateSelected];
-        [cardButton setImage:nil forState:UIControlStateSelected|UIControlStateDisabled];
-    }
+// Abstract methods that must be implemented in sublcass
+- (Deck *) createDeck {
+    return nil;  //implemented in subclass
 }
+
+- (void) updateResultsLabel:(NSString *) result {
+    //implemented in subclass
+}
+
+-(void)updateCardButton:(UIButton *)cardButton withCard:(Card *)card {
+    //implemented in subclass
+}
+// End abstract methods
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    [self loadCardImages];
+    [self updateUI];
     self.resultsSlider.hidden = YES;
-    self.resultsLabel.text = @"New game. Flip a card.";
+    self.resultsLabel.text = @"";
 }
 
 - (NSArray *) resultsArray {
@@ -62,23 +61,24 @@
     [self updateUI];
 }
 
-- (void) updateUI {
+- (void)updateUI {
     for (UIButton *cardButton in self.cardButtons) {
-        
         Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
         cardButton.selected = card.isFaceUp;
         cardButton.enabled = !card.isUnplayable;
-        cardButton.alpha = card.isUnplayable ? 0.3 : 1.0;
+        
+        [self updateCardButton:cardButton withCard:card];
     }
-    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+    self.scoreLabel.text = [NSString stringWithFormat:@"score: %d", self.game.score];
     if ([self.resultsArray count] > 0) {
         self.resultsSlider.hidden = NO;
-        if (self.displayedResult > 0) {
-            self.resultsLabel.text = self.resultsArray[self.displayedResult - 1];
-        }
+        [self updateResultsLabel:self.resultsArray[self.displayedResult - 1]];
+//        if (self.displayedResult > 0) {
+//            self.resultsLabel.text = self.resultsArray[self.displayedResult - 1];
+//        }
     }else {
         self.resultsSlider.hidden = YES;
-        self.resultsLabel.text = @"Flip a card.";
+        self.resultsLabel.text = @"";
     }
 }
 
@@ -101,8 +101,7 @@
     self.game = nil;
     self.flipCount = 0;
     self.resultsArray = nil;
-    self.resultsLabel.text = @"New game. Flip a card.";
-    [self loadCardImages];
+    self.resultsLabel.text = @"";
     [self updateUI];
 }
 

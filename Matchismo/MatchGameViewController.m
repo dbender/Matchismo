@@ -11,16 +11,15 @@
 #import "PlayingCardDeck.h"
 
 @interface MatchGameViewController ()
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+//@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (strong, nonatomic) CardMatchingGame *game;
+@property (weak, nonatomic) IBOutlet UILabel *resultsLabel;
 @end
 
-#define TWO_CARD_MATCH 2
 
 @implementation MatchGameViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -28,22 +27,54 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
 
-- (CardMatchingGame *)game
-{
-    if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                usingDeck:[[PlayingCardDeck alloc] init]
-             cardsToMatch:TWO_CARD_MATCH
-               matchBonus:4
-          mismatchPenalty:2
-                 flipCost:1];
-    return _game;
+// Begin implementation of CardGameViewController abstract methods
+- (Deck *)createDeck {
+    return [[PlayingCardDeck alloc] init];
 }
 
+- (NSUInteger) startingCardCount {
+    return [self.cardButtons count];
+}
+
+- (NSUInteger) cardsToMatch {
+    return 2;
+}
+
+- (NSUInteger) matchBonus {
+    return 4;
+}
+
+-(NSUInteger) mismatchPenalty {
+    return 2;
+}
+
+- (NSUInteger) flipCost {
+    return 1;
+}
+
+-(void)updateCardButton:(UIButton *)cardButton withCard:(Card *)card {
+    [cardButton setTitle:card.contents forState:UIControlStateSelected];
+    [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];
+    UIImage *cardImage = [UIImage imageNamed:@"card-back.png"];
+    [cardButton setImage:cardImage forState:UIControlStateNormal];
+    cardButton.imageEdgeInsets = UIEdgeInsetsFromString(@"{1.0,1.0,1.0,1.0}");
+    UIImage *blankImage = [[UIImage alloc]init];
+    [cardButton setImage:blankImage forState:UIControlStateSelected];
+    [cardButton setImage:blankImage forState:UIControlStateSelected|UIControlStateDisabled];
+    cardButton.alpha = (card.isUnplayable) ? 0.3 : 1.0;
+}
+
+-(void) updateResultsLabel:(NSString *) result {
+        self.resultsLabel.text = result;
+}
+
+// End abstract method implementations
 
 @end
+
+

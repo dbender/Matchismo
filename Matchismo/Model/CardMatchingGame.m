@@ -44,20 +44,17 @@
                 self.cards[i] = card;
             }
         }
-        if (numCards >=2) {
+        if (numCards >=2)
             self.gameMode = numCards;
-        }
+        
+        self.matchBonus = matchBonus;
+        self.mismatchPenalty = mismatchPenalty;
+        self.flipCost = flipCost;
     }
-    self.matchBonus = matchBonus;
-    self.mismatchPenalty = mismatchPenalty;
-    self.flipCost = flipCost;
-    
     return self;
 }
 
-
--(void)flipCardAtIndex:(NSUInteger)index
-{
+-(void)flipCardAtIndex:(NSUInteger)index {
     Card *card = [self cardAtIndex:index];
     NSMutableArray *upCards = [[NSMutableArray alloc] init];
     if (card && !card.isFaceUp) {

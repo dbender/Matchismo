@@ -17,13 +17,15 @@
     if (self) {
         for (int i = 1; i <= 3; i++)
             for (NSString *symbol in [SetCard validSymbols])
-                for (UIColor *color in [SetCard validColors])
-                    for (NSNumber *shading in [SetCard validShadings]) {
+                for (NSString *color in [SetCard validColors])
+                    for (NSString *pattern in [SetCard validPatterns]) {
                         SetCard *card = [[SetCard alloc]init];
                         card.number = [NSNumber numberWithInt:i];
                         card.symbol = symbol;
                         card.color = color;
-                        card.shading = shading;
+                        card.pattern = pattern;
+                        [self addCard:card atTop:YES];
+                        NSLog(@"Adding card with contents: %@",[card description]);
                     }
     }
     return self;

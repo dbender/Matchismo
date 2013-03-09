@@ -16,7 +16,5 @@
 
 - (int) match:(NSArray *) otherCards;
 
-//Comment to test github remote push
-//Comment to test github remote push again
 
 @end

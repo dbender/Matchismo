@@ -11,8 +11,7 @@
 @implementation PlayingCard
 @synthesize suit = _suit;
 
--(int)match:(NSArray *)otherCards
-{
+-(int)match:(NSArray *)otherCards {
     int score = 0;
     NSMutableArray *otherUpCards = [otherCards mutableCopy];
     for (PlayingCard *otherCard in otherUpCards) {
@@ -44,12 +43,6 @@
     return _suit ? _suit : @"?";
 }
 
--(void) setRank:(NSUInteger)rank {
-    if (1 <= rank <= [PlayingCard maxRank]) {
-        _rank = rank;
-    }
-}
-
 +(NSArray *) validSuits{
     static NSArray *validSuits = nil;
     if (!validSuits) {
@@ -59,8 +52,10 @@
     
 }
 
-+(NSUInteger) maxRank{
-    return 13;
+-(void) setRank:(NSUInteger)rank {
+    if (1 <= rank <= [PlayingCard maxRank]) {
+        _rank = rank;
+    }
 }
 
 +(NSArray *) rankStrings {
@@ -69,6 +64,10 @@
         rankStrings = @[@"?",@"A",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"J",@"Q",@"K"];
     }
     return rankStrings;
+}
+
++(NSUInteger) maxRank{
+    return [[PlayingCard rankStrings] count] - 1;
 }
 
 @end
