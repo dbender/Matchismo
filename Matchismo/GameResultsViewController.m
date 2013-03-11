@@ -28,13 +28,11 @@
 - (void)updateUI
 {
     NSString *displayText = @"";
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init]; // added after lecture
-    [formatter setDateStyle:NSDateFormatterShortStyle];          // added after lecture
-    [formatter setTimeStyle:NSDateFormatterShortStyle];          // added after lecture
-    // for (GameResult *result in [GameResult allGameResults]) { // version in lecture
-    for (GameResult *result in [[GameResult allGameResults] sortedArrayUsingSelector:self.sortSelector]) { // sorted
-        // displayText = [displayText stringByAppendingFormat:@"Score: %d (%@, %0g)\n", result.score, result.end, round(result.duration)]; // version in lecture
-        displayText = [displayText stringByAppendingFormat:@"Score: %d (%@, %0g)\n", result.score, [formatter stringFromDate:result.end], round(result.duration)];  // formatted date
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterShortStyle];         
+    [formatter setTimeStyle:NSDateFormatterShortStyle];     
+    for (GameResult *result in [[GameResult allGameResults] sortedArrayUsingSelector:self.sortSelector]) { 
+        displayText = [displayText stringByAppendingFormat:@"Game: %@, Score: %d (%@, %0g)\n",result.name, result.score, [formatter stringFromDate:result.end], round(result.duration)];  // formatted date
     }
     self.display.text = displayText;
 }
@@ -46,10 +44,6 @@
     [super viewWillAppear:animated];
     [self updateUI];
 }
-
-// Sorting section added after lecture.
-// See also the Sorting section in GameResult.[mh].
-// Wire up the three IBActions to the three buttons in the View.
 
 #pragma mark - Sorting
 

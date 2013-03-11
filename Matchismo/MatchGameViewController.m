@@ -50,6 +50,10 @@
     return 1;
 }
 
+- (NSString *) name {
+    return @"Match";
+}
+
 -(void)updateCardButton:(UIButton *)cardButton withCard:(Card *)card {
     [cardButton setTitle:card.contents forState:UIControlStateSelected];
     [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];

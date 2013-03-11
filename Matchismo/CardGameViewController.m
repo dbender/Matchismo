@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *resultsSlider;
 @property (nonatomic) NSUInteger displayedResult;
 @property (strong, nonatomic) GameResult *gameResult;
+@property (strong, nonatomic) NSString *name;
 @end
 
 @implementation CardGameViewController
@@ -27,13 +28,14 @@
              cardsToMatch:self.cardsToMatch
                matchBonus:self.matchBonus
           mismatchPenalty:self.mismatchPenalty
-                 flipCost:self.flipCost];
+                 flipCost:self.flipCost
+                     name:self.name];
     return _game;
 }
 
 - (GameResult *)gameResult
 {
-    if (!_gameResult) _gameResult = [[GameResult alloc] init];
+    if (!_gameResult) _gameResult = [[GameResult alloc] initWithName:self.name];
     return _gameResult;
 }
 
@@ -126,6 +128,7 @@
     self.flipCount = 0;
     self.resultsArray = nil;
     self.resultsLabel.text = @"";
+    self.gameResult = nil;
     [self updateUI];
 }
 

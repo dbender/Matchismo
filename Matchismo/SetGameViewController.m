@@ -59,6 +59,10 @@
     return 1;
 }
 
+- (NSString *) name {
+    return @"Set";
+}
+
 -(void)updateCardButton:(UIButton *)cardButton withCard:(Card *)card {
     NSAttributedString *cardButtonTitle = [[NSAttributedString alloc] initWithString:card.contents attributes:[self getAttributesFromCard:card]];
     [cardButton setAttributedTitle:cardButtonTitle forState:UIControlStateNormal];

@@ -16,7 +16,10 @@
 @property (readonly, nonatomic) NSDate *start;
 @property (readonly, nonatomic) NSDate *end;
 @property (readonly, nonatomic) NSTimeInterval duration;
+@property (readonly, nonatomic) NSString *name;
 @property (nonatomic) int score;
+
+- (id)initWithName:(NSString *) name;
 
 // added after lecture
 

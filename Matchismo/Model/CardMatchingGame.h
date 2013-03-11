@@ -17,7 +17,8 @@
            cardsToMatch:(NSUInteger)numCards //Match how many cards?
              matchBonus:(NSUInteger)matchBonus //How many points for match?
         mismatchPenalty:(NSUInteger)mismatchPenalty //How many points deducted for mismatch?
-               flipCost:(NSUInteger)flipCost; //How many points deducted for each card flip?
+               flipCost:(NSUInteger)flipCost //How many points deducted for each card flip?
+                   name:(NSString *)name;
 
 -(NSDictionary *)flipCardAtIndex:(NSUInteger)index;
 

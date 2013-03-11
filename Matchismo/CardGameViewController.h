@@ -26,6 +26,7 @@
 @property (nonatomic, readonly) NSUInteger matchBonus;
 @property (nonatomic, readonly) NSUInteger mismatchPenalty;
 @property (nonatomic, readonly) NSUInteger flipCost;
+@property (nonatomic, readonly) NSString *name;
 
 
 @end

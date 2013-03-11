@@ -12,6 +12,9 @@
 @interface GameResult()
 @property (readwrite, nonatomic) NSDate *start;
 @property (readwrite, nonatomic) NSDate *end;
+@property (readwrite, nonatomic) NSString *name;
+
+- (id)initWithName:(NSString *) name;
 @end
 
 @implementation GameResult
@@ -20,6 +23,7 @@
 #define START_KEY @"StartDate"
 #define END_KEY @"EndDate"
 #define SCORE_KEY @"Score"
+#define NAME_KEY @"Name"
 
 
 + (NSArray *)allGameResults
@@ -44,6 +48,7 @@
             _start = resultDictionary[START_KEY];
             _end = resultDictionary[END_KEY];
             _score = [resultDictionary[SCORE_KEY] intValue];
+            _name = resultDictionary [NAME_KEY];
             if (!_start || !_end) self = nil;
         }
     }
@@ -62,16 +67,16 @@
 
 - (id)asPropertyList
 {
-    return @{ START_KEY : self.start, END_KEY : self.end, SCORE_KEY : @(self.score) };
+    return @{ START_KEY : self.start, END_KEY : self.end, SCORE_KEY : @(self.score), NAME_KEY : self.name };
 }
 
 // designated initializer
-- (id)init
-{
+- (id)initWithName:(NSString *) name {
     self = [super init];
     if (self) {
         _start = [NSDate date];
         _end = _start;
+        _name = name;
     }
     return self;
 }

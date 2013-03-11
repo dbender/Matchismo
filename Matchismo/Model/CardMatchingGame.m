@@ -16,6 +16,7 @@
 @property (nonatomic) NSUInteger flipCost;
 @property (nonatomic) NSUInteger matchBonus;
 @property (nonatomic) NSUInteger mismatchPenalty;
+@property (strong, nonatomic) NSString *name;
 @end
 
 @implementation CardMatchingGame
@@ -32,6 +33,7 @@
              matchBonus:(NSUInteger)matchBonus
         mismatchPenalty:(NSUInteger)mismatchPenalty
                flipCost:(NSUInteger)flipCost
+                   name:(NSString *)name
 {
     self = [super init];
     
@@ -50,6 +52,7 @@
         self.matchBonus = matchBonus;
         self.mismatchPenalty = mismatchPenalty;
         self.flipCost = flipCost;
+        self.name = name;
     }
     return self;
 }
