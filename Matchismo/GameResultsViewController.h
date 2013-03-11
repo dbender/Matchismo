@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface GameResultsViewController : UIViewController
+- (IBAction)sortByDate:(id)sender;
+- (IBAction)sortByScore:(id)sender;
+- (IBAction)sortByDuration:(id)sender;
 
 @end

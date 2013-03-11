@@ -7,6 +7,7 @@
 //
 
 #import "CardGameViewController.h"
+#import "GameResult.h"
 
 @interface CardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
@@ -15,6 +16,7 @@
 @property (strong, nonatomic) NSArray *resultsArray;
 @property (weak, nonatomic) IBOutlet UISlider *resultsSlider;
 @property (nonatomic) NSUInteger displayedResult;
+@property (strong, nonatomic) GameResult *gameResult;
 @end
 
 @implementation CardGameViewController
@@ -27,6 +29,12 @@
           mismatchPenalty:self.mismatchPenalty
                  flipCost:self.flipCost];
     return _game;
+}
+
+- (GameResult *)gameResult
+{
+    if (!_gameResult) _gameResult = [[GameResult alloc] init];
+    return _gameResult;
 }
 
 // Abstract methods that must be implemented in sublcass
@@ -105,10 +113,9 @@
             flipResult = [NSString stringWithFormat:@"%@ and %@ don't match! %d point penalty!",upCardString,card.contents, self.mismatchPenalty];
         }
     }
-    NSLog(@"flipResult = %@",flipResult);
     self.resultsArray = [self.resultsArray arrayByAddingObject:flipResult];
     self.displayedResult = [self.resultsArray count];
-    
+    self.gameResult.score = self.game.score;
     [self.resultsSlider setValue:1.0 animated:YES];
     [self updateUI];
  

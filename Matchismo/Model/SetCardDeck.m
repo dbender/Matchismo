@@ -25,7 +25,6 @@
                         card.color = color;
                         card.pattern = pattern;
                         [self addCard:card atTop:YES];
-                        NSLog(@"Adding card with contents: %@",[card description]);
                     }
     }
     return self;
