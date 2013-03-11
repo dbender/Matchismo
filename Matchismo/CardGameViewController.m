@@ -72,10 +72,8 @@
     self.scoreLabel.text = [NSString stringWithFormat:@"score: %d", self.game.score];
     if ([self.resultsArray count] > 0) {
         self.resultsSlider.hidden = NO;
-        [self updateResultsLabel:self.resultsArray[self.displayedResult - 1]];
-//        if (self.displayedResult > 0) {
-//            self.resultsLabel.text = self.resultsArray[self.displayedResult - 1];
-//        }
+        if (self.displayedResult > 0)
+            [self updateResultsLabel:self.resultsArray[self.displayedResult - 1]];
     }else {
         self.resultsSlider.hidden = YES;
         self.resultsLabel.text = @"";
