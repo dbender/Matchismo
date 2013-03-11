@@ -85,13 +85,33 @@
 }
 
 - (IBAction)flipCard:(UIButton *)sender {
-    [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
+    NSDictionary *resultOfFlip = [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
+    Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:sender]];
+
     self.flipCount++;
-    self.resultsArray = [self.resultsArray arrayByAddingObject:self.game.result];
+    NSString *flipResult = @"Flipped up ";
+    flipResult = [flipResult stringByAppendingString:card.contents];
+    
+    if ([[resultOfFlip valueForKey:@"matchAttempted"]boolValue]) {
+        NSArray *upCards = [resultOfFlip valueForKey:@"upCards"];
+        int match = [[resultOfFlip valueForKey:@"match"] boolValue];
+        int matchScore = [[resultOfFlip valueForKey:@"matchScore"] intValue];
+        NSString *upCardString = @"";
+        upCardString = [upCards componentsJoinedByString:@" & "];
+        if (match) {
+            flipResult =[NSString stringWithFormat:@"Matched %@ and %@ for %d points!",upCardString, card.contents, matchScore * self.matchBonus];
+        }
+        else {
+            flipResult = [NSString stringWithFormat:@"%@ and %@ don't match! %d point penalty!",upCardString,card.contents, self.mismatchPenalty];
+        }
+    }
+    NSLog(@"flipResult = %@",flipResult);
+    self.resultsArray = [self.resultsArray arrayByAddingObject:flipResult];
     self.displayedResult = [self.resultsArray count];
-    if (self.displayedResult > 0)
-        [self.resultsSlider setValue:self.displayedResult / [self.resultsArray count] animated:YES];
+    
+    [self.resultsSlider setValue:1.0 animated:YES];
     [self updateUI];
+ 
 }
 
 - (IBAction)dealNewGame:(id)sender {

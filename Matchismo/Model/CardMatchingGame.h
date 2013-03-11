@@ -19,11 +19,10 @@
         mismatchPenalty:(NSUInteger)mismatchPenalty //How many points deducted for mismatch?
                flipCost:(NSUInteger)flipCost; //How many points deducted for each card flip?
 
-- (void) flipCardAtIndex: (NSUInteger) index;
+-(NSDictionary *)flipCardAtIndex:(NSUInteger)index;
 
 - (Card *) cardAtIndex: (NSUInteger) index;
 
 @property (nonatomic, readonly) int score;
-@property (strong, nonatomic) NSString *result;
 
 @end

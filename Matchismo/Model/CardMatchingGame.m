@@ -54,35 +54,44 @@
     return self;
 }
 
--(void)flipCardAtIndex:(NSUInteger)index {
+-(NSDictionary *)flipCardAtIndex:(NSUInteger)index {
+    BOOL matchAttempted = NO;
+    BOOL match = NO;
     Card *card = [self cardAtIndex:index];
+    int matchScore = 0;;
     NSMutableArray *upCards = [[NSMutableArray alloc] init];
     if (card && !card.isFaceUp) {
         for (Card *otherCard in self.cards)
             if (otherCard.isFaceUp && !otherCard.isUnplayable)
                 [upCards addObject:otherCard];
         if ([upCards count] + 1 == self.gameMode) {
-            int matchScore = [card match:upCards];
+            matchScore = [card match:upCards];
+            matchAttempted = YES;
             if (matchScore) {
                 card.unplayable = YES;
                 for (Card *otherCard in upCards) {
                     otherCard.unplayable = YES;
                 }
-                self.score += matchScore * self.matchBonus;
-                self.result =[NSString stringWithFormat:@"Matched %@ and %@ for %d points!",[upCards componentsJoinedByString:@", "],card.contents, matchScore * self.matchBonus];
+                matchScore *= self.matchBonus;
+                self.score += matchScore;
+                match = YES;
             } else {
                 for (Card *otherCard in upCards) {
                     otherCard.faceUp = NO;
                 }
                 self.score -= self.mismatchPenalty;
-                self.result = [NSString stringWithFormat:@"%@ and %@ don't match! %d point penalty!",[upCards componentsJoinedByString:@", "],card.contents,self.mismatchPenalty];
+                match = NO;
             }
-        } else {
-            self.result = [NSString stringWithFormat:@"Flipped up %@",card.contents];
         }
         self.score -= self.flipCost;
     }
     card.faceUp = !card.faceUp;
+    NSDictionary *resultOfFlip = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [NSNumber numberWithBool:matchAttempted], @"matchAttempted",
+                                  upCards, @"upCards",
+                                  [NSNumber numberWithBool:match], @"match",
+                                  [NSNumber numberWithInt:matchScore], @"matchScore",nil];
+    return resultOfFlip;
 }
 
 - (Card *) cardAtIndex: (NSUInteger) index {
