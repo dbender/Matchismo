@@ -15,7 +15,6 @@
 @property (strong, nonatomic) NSArray *resultsArray;
 @property (weak, nonatomic) IBOutlet UISlider *resultsSlider;
 @property (nonatomic) NSUInteger displayedResult;
-@property (weak, nonatomic) IBOutlet UILabel *resultsLabel;
 @end
 
 @implementation CardGameViewController

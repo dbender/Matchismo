@@ -13,9 +13,12 @@
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (strong, nonatomic) CardMatchingGame *game;
+@property (weak, nonatomic) IBOutlet UILabel *resultsLabel;
 
 // Abstract methods. Must be implemented in subclass
 - (Deck *) createDeck;
+- (void) updateResultsLabel:(NSString *) result;
+-(void)updateCardButton:(UIButton *)cardButton withCard:(Card *)card;
 
 // Abstract properties. Must be set by subclass
 @property (nonatomic, readonly) NSUInteger startingCardCount;

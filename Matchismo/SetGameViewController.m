@@ -11,10 +11,6 @@
 #import "CardMatchingGame.h"
 #import "SetCard.h"
 
-@interface SetGameViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *resultsLabel;
-@end
-
 @implementation SetGameViewController
 
 - (void) setup {

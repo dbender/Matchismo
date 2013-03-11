@@ -10,13 +10,6 @@
 #import "CardMatchingGame.h"
 #import "PlayingCardDeck.h"
 
-@interface MatchGameViewController ()
-//@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (strong, nonatomic) CardMatchingGame *game;
-@property (weak, nonatomic) IBOutlet UILabel *resultsLabel;
-@end
-
-
 @implementation MatchGameViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
